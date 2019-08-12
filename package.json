@@ -1,5 +1,5 @@
 {
-  "name": "my-electron-app",
+  "name": "dashboard-reactjs-web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,7 +24,7 @@
   "devDependencies": {
     "concurrently": "^3.6.0",
     "cross-env": "^5.2.0",
-    "react-scripts": "1.1.4",
+    "react-scripts": "^3.1.0",
     "version-bump-prompt": "^4.1.0"
   },
   "scripts": {
