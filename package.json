@@ -2,7 +2,9 @@
   "name": "dashboard-reactjs-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://localhost:3000/splash",
   "dependencies": {
+    "@amcharts/amcharts4": "^4.5.15",
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
     "axios": "^0.19.0",
@@ -29,7 +31,7 @@
     "version-bump-prompt": "^4.1.0"
   },
   "scripts": {
-    "start": "react-scripts start /splash",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
