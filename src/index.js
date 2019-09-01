@@ -5,9 +5,16 @@ import { withRouter } from 'react-router-dom';
 import App from './app/App';
 import store from './app/Store';
 
-import './app/App.css';
+/** Defaults */
 import './index.css';
+
+/** Bootstrap Core */
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+/** Overrieds */
+import './app/AppOverride.css';
+import './app/App.css';
+
 
 render(
     <Provider store={store}>
