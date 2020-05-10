@@ -11,7 +11,7 @@ import './index.css';
 /** Bootstrap Core */
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-/** Overrieds */
+/** Overrides */
 import './app/AppOverride.css';
 import './app/App.css';
 
