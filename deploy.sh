@@ -13,25 +13,31 @@ if [ "$1" == "-h" ]; then
   echo "help yourself..."
 
 elif [ "$1" == "-site" ] && [ "$2" == "reactjs" ]; then
-  if [ "$3" == "-clean" ]; then
-    echo "Get source from GIT"
+  rootDir=${PWD##*/}
+  if [ "$3" == "-clean" ]; then  
+    echo "Update APP branch"
+    cd src/app/
     git fetch --all --prune && git checkout . && git pull
-  fi
+    cd ../../
+    rootDir = ${PWD##*/}
+  fi  
+  
+  if [ "$rootDir" == "reactjs" ]; then
+    echo "Build file"
+    npm run build
 
-  echo "Build file"
-  npm run build
+    echo "Navigate to public site"
+    cd ../reactjs.jovanjay.com && pwd
 
-  echo "Navigate to public site"
-  cd ../reactjs.jovanjay.com && pwd
+    #delete all files
+    cdir=${PWD##*/}
+    if [ "$cdir" == "reactjs.jovanjay.com" ]; then
+      
+      #use -I for prompting user
+      rm -RI *
 
-  #delete all files
-  cdir=${PWD##*/}
-  if [ "$cdir" == "reactjs.jovanjay.com" ]; then
-    
-    #use -I for prompting user
-    rm -RI *
-
-    cp -R ../reactjs/build/* .
-    vim index.html
+      cp -R ../reactjs/build/* .
+      vim index.html
+    fi
   fi
 fi
