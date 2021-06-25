@@ -19,7 +19,7 @@ elif [ "$1" == "-site" ] && [ "$2" == "reactjs" ]; then
     cd src/app/
     git fetch --all --prune && git checkout . && git pull
     cd ../../
-    rootDir = ${PWD##*/}
+    rootDir=${PWD##*/}
   fi  
   
   if [ "$rootDir" == "reactjs" ]; then
