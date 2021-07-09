@@ -34,10 +34,13 @@ elif [ "$1" == "-site" ] && [ "$2" == "reactjs" ]; then
     if [ "$cdir" == "reactjs.jovanjay.com" ]; then
       
       #use -I for prompting user
+      echo "Resetting Site"
       rm -RI *
 
+      echo "Copying files"
       cp -R ../reactjs/build/* .
-      vim index.html
+      
+      #vim index.html
     fi
   fi
 fi
