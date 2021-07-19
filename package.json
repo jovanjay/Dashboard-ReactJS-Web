@@ -2,7 +2,7 @@
   "name": "dashboard-reactjs-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://localhost:3000",
+  "homepage": "http://dev.jovanjay.com:3000",
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.20",
     "@amcharts/amcharts4-geodata": "^4.1.21",
