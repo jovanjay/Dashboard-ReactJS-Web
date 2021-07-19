@@ -10,13 +10,11 @@ import './index.css';
 
 /** Bootstrap Core */
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
 import '../node_modules/react-calendar/dist/Calendar.css';
 
 /** Overrides */
 import './app/AppOverride.css';
 import './app/App.css';
-
 
 render(
     <Provider store={store}>
@@ -24,4 +22,3 @@ render(
     </Provider>,
     document.getElementById('root')
 );
-
