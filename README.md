@@ -66,3 +66,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+What is Project Fuze?
+
+- a ReactJS Component-Based Project, with a built-in library for implementing Data Tables, Forms and Charts. Its a ready to use framework for any Administrator dashboard needs which can be a web application or desktop application.
+
