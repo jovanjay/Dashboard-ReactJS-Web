@@ -1,74 +1,144 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Fuze Framework — Web
+
+> React-based admin dashboard framework with built-in data tables, forms, and charts.
+
+![Version](https://img.shields.io/badge/version-1.1.8-blue)
+![React](https://img.shields.io/badge/React-16-61DAFB)
+![License](https://img.shields.io/badge/license-private-lightgrey)
+
+---
+
+## What is Project Fuze?
+
+Project Fuze is a component-based React framework designed for building administrator dashboards. It ships with a ready-to-use library of data tables, forms, and charts so you can focus on your product rather than scaffolding.
+
+The framework is built around a **shared application core** (`src/app`) that is consumed by two separate shell repositories — one targeting the web, one targeting the desktop:
+
+```mermaid
+flowchart TD
+    srcApp["src/app\n(shared app source, gitignored)"]
+    webShell["Dashboard-ReactJS-Web\n(this repo)"]
+    electronShell["Dashboard-ElectronJS\n(sibling repo)"]
+    webBuild["Web Build\n(CRA / react-scripts)"]
+    desktopBuild["Desktop Build\n(Electron)"]
+
+    srcApp --> webShell
+    srcApp --> electronShell
+    webShell --> webBuild
+    electronShell --> desktopBuild
+```
+
+This repo is the **web shell**. It handles the CRA build pipeline, dependency management, and deployment. The actual UI components, routes, Redux store, and styles live inside `src/app` and are managed separately.
+
+---
+
+## Tech Stack
+
+- **Core:** React 16, Redux + redux-thunk, Immutable.js, React Router v5
+- **UI:** Material UI v4, Bootstrap 5, React Bootstrap, react-burger-menu
+- **Data / Forms:** react-table v7, Formik + Yup, react-calendar, react-bootstrap-typeahead
+- **Charts / Maps:** AmCharts 4 + amcharts4-geodata
+- **HTTP:** Axios + axios-mock-adapter (mock API support for development)
+- **Build:** Create React App (react-scripts 5), cross-env, concurrently
+
+---
+
+## Project Structure
+
+```
+Dashboard-ReactJS-Web/
+├── public/
+│   ├── index.html        # CRA HTML shell (title: "Fuze Project")
+│   └── manifest.json     # PWA metadata
+├── src/
+│   ├── index.js          # Entry point — mounts <Provider store><App /></Provider>
+│   ├── index.css         # Global base styles
+│   ├── serviceWorker.js  # Optional CRA service worker helpers
+│   └── app/              # Shared app source (gitignored — see note below)
+│       ├── App.js
+│       ├── Store.js
+│       ├── App.css
+│       └── AppOverride.css
+├── deploy.sh             # Build + deploy script for production
+└── package.json
+```
+
+> **Note:** `src/app` is listed in `.gitignore` because it is shared between this repo and the Electron sibling repo. It must be placed here manually before the app can run.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v12–v16 recommended)
+- npm
+
+> If you run into memory issues during build, set the node option before running:
+> ```bash
+> nvm use 12.8 && export NODE_OPTIONS=--max_old_space_size=1024
+> ```
+
+### Setup
+
+1. Clone this repository:
+   ```bash
+   git clone <repo-url>
+   cd Dashboard-ReactJS-Web
+   ```
+
+2. Place the shared `src/app` source into the `src/` directory. This can be copied from the Electron sibling repo or from your shared source location.
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm start
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser. The page reloads automatically on file changes.
+
+---
 
 ## Available Scripts
 
-In the project directory, you can run:
+| Script | Description |
+|---|---|
+| `npm start` | Start the development server at `localhost:3000` |
+| `npm run build` | Build the app for production into the `build/` folder |
+| `npm test` | Launch the test runner in interactive watch mode |
+| `npm run eject` | Eject CRA config (irreversible — exposes Webpack, Babel, ESLint) |
 
-### `npm start`
+---
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Deployment
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+The `deploy.sh` script handles building and deploying the app to a sibling web server directory.
 
-### `npm test`
+### Usage
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+./deploy.sh -site reactjs           # Build and deploy
+./deploy.sh -site reactjs -clean    # Pull latest src/app, then build and deploy
+```
 
-### `npm run build`
+### What it does
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **`-clean` (optional):** Runs `git fetch` + `git pull` inside `src/app/` to update the shared app source before building.
+2. Runs `npm run build` to produce the production bundle.
+3. Navigates to the sibling `reactjs.jovanjay.com/` directory.
+4. Clears the existing site files and copies the new `build/*` contents in.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+> The script must be executed from a directory named `reactjs`. The sibling deployment folder (`reactjs.jovanjay.com/`) is expected to exist at the same level.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Related Repositories
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-
-What is Project Fuze?
-
-- a ReactJS Component-Based Project, with a built-in library for implementing Data Tables, Forms and Charts. Its a ready to use framework for any Administrator dashboard needs which can be a web application or desktop application.
-
+| Repo | Description |
+|---|---|
+| **Dashboard-ReactJS-Web** (this repo) | Web shell — builds via Create React App |
+| **Dashboard-ElectronJS** | Desktop shell — compiles the same `src/app` source with Electron |
