@@ -1,69 +1,54 @@
-# Fuze Framework — Web
+# Fuze Framework
 
-> React-based admin dashboard framework with built-in data tables, forms, and charts.
+> React-based admin dashboard framework — runs as a **Web app** and a **Desktop app (Electron)** from a single codebase.
 
-![Version](https://img.shields.io/badge/version-1.1.8-blue)
-![React](https://img.shields.io/badge/React-16-61DAFB)
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
+![React](https://img.shields.io/badge/React-18-61DAFB)
+![Vite](https://img.shields.io/badge/Vite-6-646CFF)
+![Electron](https://img.shields.io/badge/Electron-35-47848F)
 ![License](https://img.shields.io/badge/license-private-lightgrey)
 
 ---
 
-## What is Project Fuze?
+## Architecture
 
-Project Fuze is a component-based React framework designed for building administrator dashboards. It ships with a ready-to-use library of data tables, forms, and charts so you can focus on your product rather than scaffolding.
+One repo. One `src/`. Two build targets.
 
-The framework is built around a **shared application core** (`src/app`) that is consumed by two separate shell repositories — one targeting the web, one targeting the desktop:
-
-```mermaid
-flowchart TD
-    srcApp["src/app\n(shared app source, gitignored)"]
-    webShell["Dashboard-ReactJS-Web\n(this repo)"]
-    electronShell["Dashboard-ElectronJS\n(sibling repo)"]
-    webBuild["Web Build\n(CRA / react-scripts)"]
-    desktopBuild["Desktop Build\n(Electron)"]
-
-    srcApp --> webShell
-    srcApp --> electronShell
-    webShell --> webBuild
-    electronShell --> desktopBuild
+```
+Dashboard-ReactJS-Web/
+├── electron/
+│   ├── main.js          # Electron main process
+│   └── preload.js       # Secure IPC bridge (contextBridge)
+├── public/              # Static assets (favicon, manifest, etc.)
+├── src/
+│   ├── main.jsx         # React 18 entry point (createRoot)
+│   ├── index.css        # Global base styles
+│   └── app/             # App source — git submodule (Dashboard-ReactJS)
+│       ├── App.js
+│       ├── Store.js
+│       ├── App.css
+│       ├── AppOverride.css
+│       ├── components/
+│       ├── reducers/
+│       └── lib/
+├── index.html           # Vite entry template
+├── vite.config.js       # Vite configuration
+└── package.json
 ```
 
-This repo is the **web shell**. It handles the CRA build pipeline, dependency management, and deployment. The actual UI components, routes, Redux store, and styles live inside `src/app` and are managed separately.
+The `src/app` directory is a **git submodule** pointing to `git@github.com:jovanjay/Dashboard-ReactJS.git`. It contains all UI components, routes, Redux store, and business logic.
 
 ---
 
 ## Tech Stack
 
-- **Core:** React 16, Redux + redux-thunk, Immutable.js, React Router v5
+- **Core:** React 18, Redux + redux-thunk, Immutable.js, React Router v6
 - **UI:** Material UI v4, Bootstrap 5, React Bootstrap, react-burger-menu
 - **Data / Forms:** react-table v7, Formik + Yup, react-calendar, react-bootstrap-typeahead
 - **Charts / Maps:** AmCharts 4 + amcharts4-geodata
-- **HTTP:** Axios + axios-mock-adapter (mock API support for development)
-- **Build:** Create React App (react-scripts 5), cross-env, concurrently
-
----
-
-## Project Structure
-
-```
-Dashboard-ReactJS-Web/
-├── public/
-│   ├── index.html        # CRA HTML shell (title: "Fuze Project")
-│   └── manifest.json     # PWA metadata
-├── src/
-│   ├── index.js          # Entry point — mounts <Provider store><App /></Provider>
-│   ├── index.css         # Global base styles
-│   ├── serviceWorker.js  # Optional CRA service worker helpers
-│   └── app/              # Shared app source (gitignored — see note below)
-│       ├── App.js
-│       ├── Store.js
-│       ├── App.css
-│       └── AppOverride.css
-├── deploy.sh             # Build + deploy script for production
-└── package.json
-```
-
-> **Note:** `src/app` is listed in `.gitignore` because it is shared between this repo and the Electron sibling repo. It must be placed here manually before the app can run.
+- **HTTP:** Axios + axios-mock-adapter
+- **Build:** Vite 6
+- **Desktop:** Electron 35 + electron-builder
 
 ---
 
@@ -71,35 +56,31 @@ Dashboard-ReactJS-Web/
 
 ### Prerequisites
 
-- Node.js (v12–v16 recommended)
+- Node.js v18+
 - npm
-
-> If you run into memory issues during build, set the node option before running:
-> ```bash
-> nvm use 12.8 && export NODE_OPTIONS=--max_old_space_size=1024
-> ```
 
 ### Setup
 
-1. Clone this repository:
+1. Clone the repo with submodules:
    ```bash
-   git clone <repo-url>
+   git clone --recurse-submodules <repo-url>
    cd Dashboard-ReactJS-Web
    ```
 
-2. Place the shared `src/app` source into the `src/` directory. This can be copied from the Electron sibling repo or from your shared source location.
-
-3. Install dependencies:
+   Or, if you've already cloned without submodules:
    ```bash
-   npm install
+   git submodule update --init --recursive
    ```
 
-4. Start the development server:
+2. Install dependencies:
    ```bash
-   npm start
+   npm install --legacy-peer-deps
    ```
 
-   Open [http://localhost:3000](http://localhost:3000) in your browser. The page reloads automatically on file changes.
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
 ---
 
@@ -107,38 +88,59 @@ Dashboard-ReactJS-Web/
 
 | Script | Description |
 |---|---|
-| `npm start` | Start the development server at `localhost:3000` |
-| `npm run build` | Build the app for production into the `build/` folder |
-| `npm test` | Launch the test runner in interactive watch mode |
-| `npm run eject` | Eject CRA config (irreversible — exposes Webpack, Babel, ESLint) |
+| `npm run dev` | Start Vite dev server at `localhost:5173` (web) |
+| `npm run build` | Production web build → `dist/` |
+| `npm run preview` | Preview the production web build locally |
+| `npm run electron:dev` | Run Vite + Electron together with hot reload |
+| `npm run electron:build` | Package the desktop app → `electron-dist/` |
 
 ---
 
-## Deployment
+## How it works
 
-The `deploy.sh` script handles building and deploying the app to a sibling web server directory.
-
-### Usage
+### Web
 
 ```bash
-./deploy.sh -site reactjs           # Build and deploy
-./deploy.sh -site reactjs -clean    # Pull latest src/app, then build and deploy
+npm run dev
+# → Vite serves at http://localhost:5173
 ```
 
-### What it does
+```bash
+npm run build
+# → Vite bundles to dist/ (ready to deploy)
+```
 
-1. **`-clean` (optional):** Runs `git fetch` + `git pull` inside `src/app/` to update the shared app source before building.
-2. Runs `npm run build` to produce the production bundle.
-3. Navigates to the sibling `reactjs.jovanjay.com/` directory.
-4. Clears the existing site files and copies the new `build/*` contents in.
+### Electron (Desktop)
 
-> The script must be executed from a directory named `reactjs`. The sibling deployment folder (`reactjs.jovanjay.com/`) is expected to exist at the same level.
+```bash
+npm run electron:dev
+# → Starts Vite, waits for it, then opens Electron loading localhost:5173
+# → Hot reload works in both the renderer (React) and main process
+```
+
+```bash
+npm run electron:build
+# → Builds the web bundle first, then packages it into a native desktop app
+# → Output: electron-dist/ (.dmg on Mac, .exe on Windows, .AppImage on Linux)
+```
 
 ---
 
-## Related Repositories
+## Updating the App Submodule
+
+The `src/app` submodule is an independent git repo. To pull the latest changes:
+
+```bash
+git submodule update --remote src/app
+git add src/app
+git commit -m "Update src/app to latest"
+```
+
+---
+
+## Related
 
 | Repo | Description |
 |---|---|
-| **Dashboard-ReactJS-Web** (this repo) | Web shell — builds via Create React App |
-| **Dashboard-ElectronJS** | Desktop shell — compiles the same `src/app` source with Electron |
+| **Dashboard-ReactJS-Web** (this repo) | Unified web + desktop shell |
+| **Dashboard-ReactJS** | Shared app source (`src/app` submodule) |

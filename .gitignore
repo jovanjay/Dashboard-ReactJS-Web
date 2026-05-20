@@ -8,10 +8,10 @@
 # testing
 /coverage
 
-/src/app
-
 # production
 /build
+/dist
+/electron-dist
 
 # misc
 .DS_Store
