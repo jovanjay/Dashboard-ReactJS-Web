@@ -1,3 +1,0 @@
-[submodule "src/app"]
-	path = src/app
-	url = git@github.com:jovanjay/Dashboard-ReactJS.git

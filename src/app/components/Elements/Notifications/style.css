@@ -1,0 +1,21 @@
+/** Component level styles should be concerned with dimensions not aesthetics */
+
+.widget-notifications {
+}
+
+.widget-notifications .carousel {
+    min-height: 150px;
+}
+
+.widget-notifications .carousel-item {
+    min-height: 200px !important;
+}
+
+.widget-notifications .carousel-caption {
+    color: #000 !important;
+    text-align: left !important;
+}
+
+.carousel-control-next, .carousel-control-prev {
+    color: #000 !important;
+}

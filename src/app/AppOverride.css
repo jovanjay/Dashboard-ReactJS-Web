@@ -1,0 +1,142 @@
+.card {
+    box-shadow: 0 0 .875rem 0 rgba(41,48,66,.05);
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+}
+
+.card.bg-light {
+
+}
+
+.card-header {
+
+}
+
+.card-body {
+    padding: 15px;
+}
+
+
+.layout-content .card .card-body{
+    min-height: 150px;
+}
+
+/**/
+.sr-only {
+    display: none;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.mr-1 {
+    margin-right: 3px !important;
+}
+
+.mr-2 {
+    margin-right: 6px !important;
+}
+
+.mr-3 {
+    margin-right: 9px !important;
+}
+
+.pl-3 {
+    padding-left: 9px !important;
+}
+
+.pr-3 {
+    padding-right: 9px !important;
+}
+
+/** Toast */
+.toast > .toast-header {
+    background-color: transparent;    
+    border-bottom: none;
+}
+
+.toast.danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+.toast.danger > .toast-header {
+    color: #842029;
+}
+
+.toast.success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+.toast.success > .toast-header {
+    color: #0f5132;
+}
+
+.toast.warning {
+    color: #664d03;
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+}
+.toast.warning > .toast-header {
+    color: #664d03;
+}
+
+.toast.info {
+    color: #084298;
+    background-color: #cfe2ff;
+    border-color: #b6d4fe;
+}
+.toast.info > .toast-header {
+    color: #084298;
+}
+
+
+/** Buttons */
+.btn.btn-100w {
+    width: 100%;
+}
+
+.sidebar-handle .btn {
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+    padding: 8px 12px;
+}
+
+.sidebar-handle .btn-link {
+    color: #ffffff;
+}
+
+.sidebar-handle .sidebar-selected {
+    background-color: #313a46;
+}
+
+/** Table */
+.pagination-sm .page-link {
+    color: #495057;
+    margin-right: 7px;
+    border-radius: 3px;
+}
+
+/** Calendar */
+.react-calendar {
+    width: 100%;
+    box-shadow: 0 0 .875rem 0 rgba(41,48,66,.05);
+    border: 0 solid transparent;
+    border-radius: .25rem;
+}
+
+.react-calendar__tile--now {
+    background-color: #CCC;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: #0056b3;
+    font-weight: bold;
+}
