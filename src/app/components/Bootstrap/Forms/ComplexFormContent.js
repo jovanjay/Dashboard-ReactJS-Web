@@ -225,7 +225,7 @@ class ComplexFormContent extends React.Component {
                                             />)
                                     ))}
                                     <Form.Group as={Col} className="mb-3">
-                                        <Button variant="primary" type="submit" className="mr-3">
+                                        <Button variant="primary" type="submit" className="me-3">
                                             Submit
                                         </Button>
                                         <Button variant="light" type="button" onClick={handleReset}>

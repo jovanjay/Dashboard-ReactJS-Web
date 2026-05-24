@@ -1,14 +1,10 @@
-import Immutable from 'immutable';
-import * as actionTypes from '../../lib/AppActionTypes';
+const DEFAULT_STATE = {
+    data: []
+};
 
-//Reducer
-const DEFAULT_STATE = new Immutable.Map({
-    data : []
-});
-  
 export default function (state = DEFAULT_STATE, action) {
-    switch (action.type) {                
+    switch (action.type) {
         default:
             return state;
-      }
+    }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import {
     Container,
     Card,
@@ -7,52 +7,49 @@ import {
     Row
 } from 'react-bootstrap';
 
-
 class Splash extends React.Component {
 
     constructor(props) {
         super(props);
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.props.init();
     }
 
-    componentDidUpdate (prevProps, prevState, snapshot) {
-
-        // broadcast on window for desktop
-        if(window.ipcRenderer && this.props.isDataLoaded) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (window.ipcRenderer && this.props.isDataLoaded) {
             window.ipcRenderer.send('app-init', {
-                isDataLoaded : this.props.isDataLoaded,
-                data : this.props.data
-            })
-        }
-        else {            
+                isDataLoaded: this.props.isDataLoaded,
+                data: this.props.data
+            });
         }
     }
 
     render() {
+        let r = this.props.data;
 
-        let r = this.props.data;       
-        
-        if(this.props.isLoading){
-            return (<Container>
-                <Row className="justify-content-md-center">
-                    <Col xs lg="6">
-                        <Card>
-                            <Card.Body> Splash panel here ... </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>)
+        if (this.props.isLoading) {
+            return (
+                <Container>
+                    <Row className="justify-content-md-center">
+                        <Col xs lg="6">
+                            <Card>
+                                <Card.Body> Splash panel here ... </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Container>
+            );
         }
 
-        if(!this.props.isLoading && this.props.isDataLoaded && r.hasOwnProperty('user')) {
-            return <Redirect to="/dashboard"/>
+        if (!this.props.isLoading && this.props.isDataLoaded && r.hasOwnProperty('user')) {
+            return <Navigate to="/dashboard" replace />;
+        } else if (!this.props.isLoading && !r.hasOwnProperty('user')) {
+            return <Navigate to="/login" replace />;
         }
-        else if (!this.props.isLoading && !r.hasOwnProperty('user')) {
-            return <Redirect to="/login"/>
-        }
+
+        return null;
     }
 }
 

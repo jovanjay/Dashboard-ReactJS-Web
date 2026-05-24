@@ -200,9 +200,9 @@ class FormWizardContent extends React.Component {
                                 />) 
                         ))}
                         <Form.Group as={Col}>
-                            <Button variant="light" type="button" className="float-left mr-1" onClick={() => {this.processStep('back')}}>back</Button>
-                            <Button variant="light" type="button" className="float-right" onClick={handleReset}>Reset</Button>
-                            <Button variant="success" type="submit" className="float-right mr-1">{(this.state.current < (this.formFieldData.length-1)) ? 'Proceed' : 'Submit'}</Button>
+                            <Button variant="light" type="button" className="float-start me-1" onClick={() => {this.processStep('back')}}>back</Button>
+                            <Button variant="light" type="button" className="float-end" onClick={handleReset}>Reset</Button>
+                            <Button variant="success" type="submit" className="float-end me-1">{(this.state.current < (this.formFieldData.length-1)) ? 'Proceed' : 'Submit'}</Button>
                         </Form.Group>
                     </Form>)
             }

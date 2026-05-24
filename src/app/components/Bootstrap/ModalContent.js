@@ -199,13 +199,13 @@ class ModalContent extends React.Component {
                     <h2 className="content-title">Basic Modal</h2>
                     <p>A simple modal implementation.</p>
                     {this.buttonsBasic.map((o,i)=>(
-                        <Button key={i} className="mr-3" onClick={()=>{this.showModal(o.title, o.fullscreen, o.size, o.custom, o.centered, o.content)}}>{o.title}</Button>
+                        <Button key={i} className="me-3" onClick={()=>{this.showModal(o.title, o.fullscreen, o.size, o.custom, o.centered, o.content)}}>{o.title}</Button>
                     ))}
                 </Col>
                 <Col lg={12} className="mb-5">
                     <h2 className="content-title">Complex Modal</h2>
                     <p>A complex modal implementation with dynamic components contents.</p>
-                    <Button className="mr-3" onClick={()=>{this.showModal("",false, "lg", false, false, 'form')}}>Modal with Form</Button>
+                    <Button className="me-3" onClick={()=>{this.showModal("",false, "lg", false, false, 'form')}}>Modal with Form</Button>
                     {this.state.formData && <Alert key={5} variant="secondary" className="mt-4">
                         <pre>
                             <code>
@@ -217,10 +217,10 @@ class ModalContent extends React.Component {
                 <Col lg={12} className="mb-5">
                     <h2 className="content-title">Alert</h2>
                     <p>Application alert can be called on any component via state dispatch.</p>                        
-                    <Button variant="danger" className="mr-3" onClick={()=>{this.props.prompt('danger')}}>Show Alert</Button>
-                    <Button variant="warning" className="mr-3" onClick={()=>{this.props.prompt('warning')}}>Show Alert</Button>
-                    <Button variant="success" className="mr-3" onClick={()=>{this.props.prompt('success')}}>Show Alert</Button>
-                    <Button variant="info" className="mr-3" onClick={()=>{this.props.prompt('info')}}>Show Alert</Button>
+                    <Button variant="danger" className="me-3" onClick={()=>{this.props.prompt('danger')}}>Show Alert</Button>
+                    <Button variant="warning" className="me-3" onClick={()=>{this.props.prompt('warning')}}>Show Alert</Button>
+                    <Button variant="success" className="me-3" onClick={()=>{this.props.prompt('success')}}>Show Alert</Button>
+                    <Button variant="info" className="me-3" onClick={()=>{this.props.prompt('info')}}>Show Alert</Button>
                 </Col>
                 <Col lg={6}>
                     <h2 className="content-title">Context Menu</h2>

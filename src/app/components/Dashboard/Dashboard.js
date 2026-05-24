@@ -1,14 +1,7 @@
 import React from 'react';
 
-/** Core */
+import { Navigate } from 'react-router-dom';
 
-import {
-    Info
-} from '@material-ui/icons';
-
-import { Redirect } from 'react-router-dom';
-
-/** Components */
 import TabContent from '../Bootstrap/TabContent';
 
 import TablesContent from '../Bootstrap/TablesContent';
@@ -28,7 +21,6 @@ import Application from '../Application/Application';
 
 import User from '../User';
 
-/** Helpers */
 import * as appComponents from '../../lib/AppComponents';
 import store from '../../Store';
 
@@ -37,108 +29,91 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
 
-        /** States variables */
         this.state = {
-            current : appComponents.DASHBOARD,
-            target : appComponents.HOME,
-            data : {},
-            subMenus : [],
-            loggedOut : (localStorage.getItem('app-auth-token') === null)?true:false,
-        }
+            current: appComponents.DASHBOARD,
+            target: appComponents.HOME,
+            data: {},
+            subMenus: [],
+            loggedOut: (localStorage.getItem('app-auth-token') === null) ? true : false,
+        };
 
-        /** Get states from other reducer */
+        this._unsubscribe = null;
+    }
+
+    componentDidMount() {
         let currentState;
-        store.subscribe(() => {
-
-            let prevState = currentState
+        this._unsubscribe = store.subscribe(() => {
+            let prevState = currentState;
             currentState = store.getState();
 
-            //check token
             const token = localStorage.getItem('app-auth-token');
+            let s = {};
 
-            let s = {}
-            if(token === null) {
+            if (token === null) {
                 s.loggedOut = true;
             }
 
-            for(let r in currentState) {
-                if (currentState.hasOwnProperty(r)) {
-                    if(currentState[r].get('current') !== undefined) {
-
-                    }
+            if (prevState !== currentState) {
+                if (currentState.sidebarReducer.current) {
+                    s.current = currentState.sidebarReducer.current;
+                    s.target = currentState.sidebarReducer.target;
+                    s.data = currentState.sidebarReducer.data;
                 }
             }
 
-            if(prevState !== currentState) {
-                //reset the Core App data
-                // if (!s.loggedOut && currentState.headerReducer.get('isLoggedOut')){
-                //     s.loggedOut = true;
-                // }
-
-                //Sidebar listener
-                if(currentState.sidebarReducer.get('current')) {
-                    s.current = currentState.sidebarReducer.get('current');
-                    s.target = currentState.sidebarReducer.get('target');
-                    s.data = currentState.sidebarReducer.get('data');
-                }
-            }
-
-            if(s !== {}) {
+            if (Object.keys(s).length > 0) {
                 this.setState(s);
             }
         });
-    }
 
-    
-
-    componentDidMount() {        
         this.onLoadActions();
     }
 
-    componentWillUnmount() {}
+    componentWillUnmount() {
+        if (this._unsubscribe) {
+            this._unsubscribe();
+        }
+    }
 
     componentDidUpdate() {}
 
-    /** Helper functions */
     onLoadActions = () => {
-
         console.debug('Dashboard Mounted', {
-            state : this.state,
-            props : this.props
+            state: this.state,
+            props: this.props
         });
 
         this.props.init();
     }
-    
+
     onActions = () => {}
 
-    /**
-     * Add main functional components here
-     */
     render() {
-        if(this.state.loggedOut) {
-            return <Redirect to="/login"/>
+        if (this.state.loggedOut) {
+            return <Navigate to="/login" replace />;
         } else {
-            return(<div>
-                    {this.state.current === appComponents.DASHBOARD && <HomeContent data={this.state.data}/>}
-                    {this.state.current === appComponents.TABS && <TabContent data={this.state.data}/>}
-                    
-                    {this.state.current === appComponents.TABLES && <TablesContent data={this.state.data}/>}
-                    {this.state.current === appComponents.TABLES_PAGINATION && <TablesPaginationContent/>}
-                    {this.state.current === appComponents.TABLES_ACTIONS && <TablesActionsContent/>}
+            return (
+                <div>
+                    {this.state.current === appComponents.DASHBOARD && <HomeContent data={this.state.data} />}
+                    {this.state.current === appComponents.TABS && <TabContent data={this.state.data} />}
 
-                    {this.state.current === appComponents.FORMS && <FormContent data={this.state.data}/>}
-                    {this.state.current === appComponents.COMPLEX_FORMS && <ComplexFormContent data={this.state.data}/>}
-                    {this.state.current === appComponents.FORM_WIZARD && <FormWizardContent data={this.state.data}/>}
+                    {this.state.current === appComponents.TABLES && <TablesContent data={this.state.data} />}
+                    {this.state.current === appComponents.TABLES_PAGINATION && <TablesPaginationContent />}
+                    {this.state.current === appComponents.TABLES_ACTIONS && <TablesActionsContent />}
 
-                    {this.state.current === appComponents.TODOLIST && <TodoList data={this.state.data}/>}
+                    {this.state.current === appComponents.FORMS && <FormContent data={this.state.data} />}
+                    {this.state.current === appComponents.COMPLEX_FORMS && <ComplexFormContent data={this.state.data} />}
+                    {this.state.current === appComponents.FORM_WIZARD && <FormWizardContent data={this.state.data} />}
 
-                    {this.state.current === appComponents.USER && <User data={this.state.data}/>}
-                    {this.state.current === appComponents.LAYOUT && <LayoutContent data={this.state.data}/>}
-                    {this.state.current === appComponents.MODAL && <ModalContent data={this.state.data}/>}
+                    {this.state.current === appComponents.TODOLIST && <TodoList data={this.state.data} />}
 
-                    {this.state.target === appComponents.APPLICATION && <Application data={this.state.data}/>}
-                </div>);
+                    {this.state.current === appComponents.USER && <User data={this.state.data} />}
+                    {this.state.current === appComponents.LAYOUT && <LayoutContent data={this.state.data} />}
+                    {this.state.current === appComponents.MODAL && <ModalContent data={this.state.data} />}
+
+                    {this.state.target === appComponents.APPLICATION && <Application data={this.state.data} />}
+                </div>
+            );
         }
     }
 }

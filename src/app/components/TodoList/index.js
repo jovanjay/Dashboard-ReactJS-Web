@@ -1,33 +1,31 @@
-import { withRouter } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import TodoList from './TodoList';
 
 const mapStateProps = state => ({
-    isInitializing : state.todolistReducer.get('isInitializing'),
-    isInitialized : state.todolistReducer.get('isInitialized'),
+    isInitializing: state.todolistReducer.isInitializing,
+    isInitialized: state.todolistReducer.isInitialized,
 
-    isLoading : state.todolistReducer.get('isLoading'),
-    isLoaded : state.todolistReducer.get('isLoaded'),
-    
-    isSaving : state.todolistReducer.get('isSaving'),
-    isSaved : state.todolistReducer.get('isSaved'),
+    isLoading: state.todolistReducer.isLoading,
+    isLoaded: state.todolistReducer.isLoaded,
 
-    isDeleting : state.todolistReducer.get('isDeleting'),
-    isDeleted : state.todolistReducer.get('isDeleted'),
+    isSaving: state.todolistReducer.isSaving,
+    isSaved: state.todolistReducer.isSaved,
 
-    data : state.todolistReducer.get('data'),
+    isDeleting: state.todolistReducer.isDeleting,
+    isDeleted: state.todolistReducer.isDeleted,
 
-    error : state.todolistReducer.get('error')
+    data: state.todolistReducer.data,
+
+    error: state.todolistReducer.error
 });
 
 const mapDispatchToProps = dispatch => ({
-    action : (data, type) => dispatch(actions.action(data, type)),
-    sync : () => dispatch(actions.sync()),
-    reset : () => dispatch(actions.reset()),
-    load : () => dispatch(actions.getTodoList()),
-    init : () => dispatch(actions.initialize())
+    action: (data, type) => dispatch(actions.action(data, type)),
+    sync: () => dispatch(actions.sync()),
+    reset: () => dispatch(actions.reset()),
+    load: () => dispatch(actions.getTodoList()),
+    init: () => dispatch(actions.initialize())
 });
 
-export default connect(mapStateProps, mapDispatchToProps)(withRouter(TodoList));
+export default connect(mapStateProps, mapDispatchToProps)(TodoList);

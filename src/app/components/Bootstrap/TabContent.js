@@ -15,106 +15,96 @@ import {
     AddCircle,
     Cancel,
     Face
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 class TabContent extends React.Component {
-    
+
     constructor(props) {
         super(props);
 
         this.state = {
-            dynamicTabsSelected : 'dyn_tab_0',
-            tabs : [
-                {title : 'tab'}
-            ]
-        }
+            dynamicTabsSelected: 'dyn_tab_0',
+            tabs: [{ title: 'tab' }]
+        };
     }
 
-    addTabs = () => {        
+    addTabs = () => {
         let _tabs = [...this.state.tabs];
-        
-        _tabs.push({
-            title : 'dynamic tab'
-        });
-
-        let new_tab = 'dyn_tab_' + (_tabs.length-1);
-
-        this.setState({
-            tabs : _tabs,
-            dynamicTabsSelected : new_tab
-        });
+        _tabs.push({ title: 'dynamic tab' });
+        let new_tab = 'dyn_tab_' + (_tabs.length - 1);
+        this.setState({ tabs: _tabs, dynamicTabsSelected: new_tab });
     }
 
     onTabAction = (tabType, actionType, index) => {
         let _tabs = [...this.state.tabs];
-
-        if(tabType === 'dynamic_tab')
-        {
-            if(actionType === "remove") {
-                _tabs.splice(index,1);
-            }
+        if (tabType === 'dynamic_tab' && actionType === "remove") {
+            _tabs.splice(index, 1);
         }
-
-        this.setState({
-            tabs : _tabs,
-            dynamicTabsSelected : "dyn_tab_" + index
-        });
+        this.setState({ tabs: _tabs, dynamicTabsSelected: "dyn_tab_" + index });
     }
 
-    sampleFormContent = () => (<div><Row>
-            <Col>
-                <Form>
-                    <Form.Group controlId="formBasicEmail" className="mb-3">
-                        <Form.Label>Email address</Form.Label>
+    sampleFormContent = () => (
+        <div>
+            <Row>
+                <Col>
+                    <Form>
+                        <Form.Group controlId="formBasicEmail" className="mb-3">
+                            <Form.Label>Email address</Form.Label>
                             <Form.Control size="sm" type="email" placeholder="Enter email" />
                             <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                             </Form.Text>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicPassword" className="mb-3">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control size="sm" type="password" placeholder="Password" />
-                    </Form.Group>
-                    <Form.Group controlId="formBasicChecbox" className="mb-3">
-                        <Form.Check type="checkbox" label="Check me out" />
-                    </Form.Group>
-                    <Button variant="primary" size="sm" type="submit">  Submit</Button>
-                </Form>
-            </Col>
-        </Row></div>)
+                        </Form.Group>
+                        <Form.Group controlId="formBasicPassword" className="mb-3">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control size="sm" type="password" placeholder="Password" />
+                        </Form.Group>
+                        <Form.Group controlId="formBasicChecbox" className="mb-3">
+                            <Form.Check type="checkbox" label="Check me out" />
+                        </Form.Group>
+                        <Button variant="primary" size="sm" type="submit">Submit</Button>
+                    </Form>
+                </Col>
+            </Row>
+        </div>
+    )
 
-    sampleContent = (custom_class) => (<div><Row className="mb-4">
-            <Col>
-            <div className={"sample-tab-content " + (custom_class)}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in sollicitudin est, eu rhoncus massa. Maecenas cursus aliquam pellentesque. Integer eget turpis a neque laoreet finibus. Integer vel dolor nisi. Cras ullamcorper ex nulla, non lacinia risus facilisis id. Integer id faucibus est. Cras dui tellus, venenatis vel ornare quis, iaculis ac tellus.</p>
-                <p>Nunc ultrices mauris pretium, gravida eros nec, tristique lorem. Pellentesque efficitur felis pulvinar enim euismod venenatis. Donec ullamcorper cursus lacus eget fermentum. Quisque sit amet orci pellentesque tortor </p>
-                <p>suscipit tempor. Nunc at mollis justo. Nullam sed purus a turpis pharetra cursus. Cras molestie massa eget nunc volutpat, at efficitur ipsum mollis.</p>
-                 
-            </div>
-            </Col>
-        </Row></div>)
+    sampleContent = (custom_class) => (
+        <div>
+            <Row className="mb-4">
+                <Col>
+                    <div className={"sample-tab-content " + (custom_class || "")}>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in sollicitudin est, eu rhoncus massa. Maecenas cursus aliquam pellentesque. Integer eget turpis a neque laoreet finibus. Integer vel dolor nisi.</p>
+                        <p>Nunc ultrices mauris pretium, gravida eros nec, tristique lorem. Pellentesque efficitur felis pulvinar enim euismod venenatis.</p>
+                        <p>Donec ullamcorper cursus lacus eget fermentum. Quisque sit amet orci pellentesque tortor suscipit tempor.</p>
+                    </div>
+                </Col>
+            </Row>
+        </div>
+    )
 
-    render () {
-        return (<div>
+    render() {
+        return (
+            <div>
                 <Row>
                     <Col lg={6} md={12} xs={12}>
                         <h2 className="content-title">Tabbed Content</h2>
-                        <p>Tabbed contents with iCon and action button.</p>
+                        <p>Tabbed contents with icon and action button.</p>
                         <Tabs defaultActiveKey="tab_1">
-                            <Tab eventKey="tab_1" title={<span><Face/> Tab 1</span>}>{this.sampleContent()}</Tab>
-                            <Tab eventKey="tab_2" title={<span>Tab 2 <Cancel style={{fontSize: 15}}/></span>}>{this.sampleContent()}</Tab>
-                            <Tab eventKey="tab_3" title={<span>Tab 3 <Cancel onClick={()=>{alert('tab action')}} style={{fontSize: 15}}/></span>}>{this.sampleContent()}</Tab>
+                            <Tab eventKey="tab_1" title={<span><Face /> Tab 1</span>}>{this.sampleContent()}</Tab>
+                            <Tab eventKey="tab_2" title={<span>Tab 2 <Cancel style={{ fontSize: 15 }} /></span>}>{this.sampleContent()}</Tab>
+                            <Tab eventKey="tab_3" title={<span>Tab 3 <Cancel onClick={() => { alert('tab action'); }} style={{ fontSize: 15 }} /></span>}>{this.sampleContent()}</Tab>
                             <Tab eventKey="tab_4" title="Tab 4">{this.sampleContent()}</Tab>
                         </Tabs>
                     </Col>
-                    <Col lg={6} md={12} xs={12}>                        
+                    <Col lg={6} md={12} xs={12}>
                         <h2 className="content-title">Dynamic Tabbed Content</h2>
-                        <p>Dynamically add and delte tabbed contents.</p>
-                        <Tabs defaultActiveKey="dyn_tab_0" onSelect={(k)=>{this.setState({dynamicTabsSelected:k})}} activeKey={this.state.dynamicTabsSelected}>
+                        <p>Dynamically add and delete tabbed contents.</p>
+                        <Tabs defaultActiveKey="dyn_tab_0" onSelect={(k) => { this.setState({ dynamicTabsSelected: k }); }} activeKey={this.state.dynamicTabsSelected}>
                             {this.state.tabs.map((item, index) => (
-                                <Tab key={index} eventKey={"dyn_tab_" + index} title={<span>Tab {index} <Cancel onClick={()=>{this.onTabAction('dynamic_tab', 'remove', index)}} style={{fontSize: 15}}/></span>}>{this.sampleContent()}</Tab>
+                                <Tab key={index} eventKey={"dyn_tab_" + index} title={<span>Tab {index} <Cancel onClick={() => { this.onTabAction('dynamic_tab', 'remove', index); }} style={{ fontSize: 15 }} /></span>}>{this.sampleContent()}</Tab>
                             ))}
-                            <Tab key={this.state.tabs.length} style={{fontSize: 20}} eventKey={"dyn_tab_" + this.state.tabs.length} title={<span><AddCircle style={{fontSize: 25}} onClick={() => this.addTabs()} /></span>}></Tab>
+                            <Tab key={this.state.tabs.length} style={{ fontSize: 20 }} eventKey={"dyn_tab_" + this.state.tabs.length} title={<span><AddCircle style={{ fontSize: 25 }} onClick={() => this.addTabs()} /></span>}></Tab>
                         </Tabs>
                     </Col>
                 </Row>
@@ -145,11 +135,11 @@ class TabContent extends React.Component {
                                         <Tab.Pane eventKey="tabCard2">
                                             <Card.Title>Special title treatment 2</Card.Title>
                                             <Card.Text>
-                                                Donec in sollicitudin est, eu rhoncus massa. Maecenas cursus aliquam pellentesque. Integer eget turpis a neque laoreet finibus. Integer vel dolor nisi. Cras ullamcorper ex nulla, non lacinia risus facilisis id. Integer id faucibus est. Cras dui tellus, venenatis vel ornare quis, iaculis ac tellus.
+                                                Donec in sollicitudin est, eu rhoncus massa. Maecenas cursus aliquam pellentesque.
                                             </Card.Text>
                                             <Row>
                                                 <Col>
-                                                    <Button variant="primary" className="pull-left">Go somewhere 2</Button>
+                                                    <Button variant="primary" className="float-start">Go somewhere 2</Button>
                                                 </Col>
                                             </Row>
                                         </Tab.Pane>
@@ -164,7 +154,7 @@ class TabContent extends React.Component {
                         <Card>
                             <Card.Header>Featured</Card.Header>
                             <Card.Body>
-                                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                                <Tab.Container id="vertical-tabs-example" defaultActiveKey="first">
                                     <Row>
                                         <Col lg={3} md={3} sm={4}>
                                             <Nav variant="pills" className="flex-column">
@@ -185,9 +175,11 @@ class TabContent extends React.Component {
                                     </Row>
                                 </Tab.Container>
                             </Card.Body>
-                        </Card> 
+                        </Card>
                     </Col>
-                </Row></div>)
+                </Row>
+            </div>
+        );
     }
 }
 

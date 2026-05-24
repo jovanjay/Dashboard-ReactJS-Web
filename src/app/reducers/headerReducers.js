@@ -1,28 +1,15 @@
-import Immutable from 'immutable';
 import * as actionTypes from '../lib/AppActionTypes';
 
-/**
- * Initial State
- */
+const DEFAULT_STATE = {
+    current: 'dashboard'
+};
 
- //Reducer
-const DEFAULT_STATE = new Immutable.Map({
-    current: "dashboard"
-});
-
-// Main Nav reducer
 export default function (state = DEFAULT_STATE, action) {
-    let nextState;
     switch (action.type) {
-        case actionTypes.LOAD_CONTENT :
-            nextState = state.merge({
-                current : action.current
-            });
-            break;
+        case actionTypes.LOAD_CONTENT:
+            return { ...state, current: action.current };
 
-        default: break;
+        default:
+            return state;
     }
-
-    // Simply return the original `state` if `nextState` is null or undefined.
-    return nextState || state;
 }

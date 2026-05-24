@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from '@reduxjs/toolkit';
 import * as actionTypes from '../lib/AppActionTypes';
 
 import loginReducer from './loginReducers';
@@ -12,10 +12,8 @@ import commonReducer from './commonReducers';
 import applicationReducer from './Application/applicationReducers';
 import subapplicationReducer from './Application/subapplicationReducers';
 
-
 import todolistReducer from './todolistReducers';
 
-//Combine all reducers
 const appReducer = combineReducers({
     headerReducer,
     sidebarReducer,
@@ -29,12 +27,11 @@ const appReducer = combineReducers({
     userReducer
 });
 
-
 const rootReducer = (state, action) => {
-    if(action.type == actionTypes.LOGOUT_SUCCESS) {
+    if (action.type === actionTypes.LOGOUT_SUCCESS) {
         state = undefined;
     }
-    return appReducer(state, action)
-}
+    return appReducer(state, action);
+};
 
 export default rootReducer;

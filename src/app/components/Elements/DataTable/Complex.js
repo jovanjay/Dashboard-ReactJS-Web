@@ -14,11 +14,7 @@ import {
     Button
 } from 'react-bootstrap';
 
-import {
-    Refresh,
-    Delete,
-    Edit
-} from '@material-ui/icons';
+import { Refresh, Delete, Edit } from '@mui/icons-material';
 
 import * as MockData from '../../../lib/AppMakeData'
 
@@ -103,8 +99,8 @@ function DtTable ({ columns, data, updateMyData, resetData, deleteSelected,  dis
         <>
             <Card.Header className="clearfix">
                 React Table Row Actions
-                <Button className="float-right ml-2" variant="outline-secondary" size="sm" onClick={deleteSel}><Delete/> Delete</Button>
-                <Button className="float-right" variant="outline-secondary" size="sm" onClick={resetData}><Refresh/> Refresh</Button>
+                <Button className="float-end ms-2" variant="outline-secondary" size="sm" onClick={deleteSel}><Delete/> Delete</Button>
+                <Button className="float-end" variant="outline-secondary" size="sm" onClick={resetData}><Refresh/> Refresh</Button>
             </Card.Header>
             
             <Table as={Card.Body} responsive {...getTableProps()} className="react-table-editable" hover>
@@ -134,9 +130,9 @@ function DtTable ({ columns, data, updateMyData, resetData, deleteSelected,  dis
             </Table>
 
             <Card.Footer>
-                <Row className="pl-3 pr-3">
+                <Row className="ps-3 pe-3">
                     <Col>
-                        <span className="float-left">
+                        <span className="float-start">
                             <select
                                 className="form-control" size="sm"
                                 value={pageSize}
@@ -158,7 +154,7 @@ function DtTable ({ columns, data, updateMyData, resetData, deleteSelected,  dis
                     </Col>
 
                     <Col>
-                        {page.length >= pageSize && (<Pagination size="sm" className="float-right">
+                        {page.length >= pageSize && (<Pagination size="sm" className="float-end">
                             <Pagination.First onClick={() => gotoPage(0)} disabled={!canPreviousPage}/>
                             <Pagination.Prev onClick={() => previousPage()} disabled={!canPreviousPage}/>
 

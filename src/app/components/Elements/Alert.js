@@ -1,123 +1,92 @@
 import React from "react";
 import {
-    Toast
+    Toast,
+    ToastContainer
 } from 'react-bootstrap';
 import {
     Info,
     WarningTwoTone,
     ErrorTwoTone,
     CheckCircleTwoTone
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 class Alert extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data : []
+            data: []
         };
-
-        console.debug('Alert', this.props.data);
     }
 
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(prevProps, prevState) {
         console.debug('Alert Component', {
-            props : this.props.data,
-            prev_props : prevProps,
-            state : this.state,
-            prev_state : prevState
+            props: this.props.data,
+            prev_props: prevProps,
+            state: this.state,
+            prev_state: prevState
         });
 
-        if(prevProps.data != this.props.data) {
-            if(this.props.data?.id && !this.alertExists(this.props.data.id)) {
+        if (prevProps.data !== this.props.data) {
+            if (this.props.data?.id && !this.alertExists(this.props.data.id)) {
                 let alerts = [...this.state.data];
                 let alert = this.props.data;
                 alerts.push({
-                    id : alert.id,
-                    show : true,
-                    timeout : 5000,
-                    persist : true,
-                    title : alert.title,
-                    content : alert.content,
+                    id: alert.id,
+                    show: true,
+                    timeout: 5000,
+                    persist: true,
+                    title: alert.title,
+                    content: alert.content,
                     type: alert.type
                 });
-
-                this.setState({
-                    data : alerts
-                });
+                this.setState({ data: alerts });
             }
         }
-
-        console.log(this.state.data);
     }
 
     alertExists = (id) => {
-        let t = [...this.state.data];
-        let exist = false;
-
-        t.forEach((item, index) => {
-            if(item?.id && item.id === id) {
-                exist = true;
-            }
-        });
-
-        return exist;
+        return this.state.data.some(item => item?.id && item.id === id);
     }
 
     onAlertClose = (id) => {
         let t = [...this.state.data];
-        let closed = -1;
-
-        t.forEach((item, index) => {
-            if(item?.id && item.id === id && item.show) {
-                t[index].show = false;
+        t.forEach((item) => {
+            if (item?.id && item.id === id && item.show) {
+                item.show = false;
             }
         });
-        
-        this.setState({
-            data : t
-        });
-
-        //TODO : Nuke closed alerts
+        this.setState({ data: t });
     }
 
-    alertTpl = (data, index) => {
-        return (<Toast 
-                    autohide 
-                    key={index} 
-                    onClose={()=>{this.onAlertClose(data.id)}} 
-                    show={data.show} 
-                    delay={data.timeout}                     
-                    className={data.type}>
+    alertTpl = (data, index) => (
+        <Toast
+            autohide
+            key={index}
+            onClose={() => { this.onAlertClose(data.id); }}
+            show={data.show}
+            delay={data.timeout}
+            className={data.type}>
             <Toast.Header>
-                {data.type == 'info' && <Info className="mr-3"/>}
-                {data.type == 'warning' && <WarningTwoTone className="mr-3"/>}
-                {data.type == 'success' && <CheckCircleTwoTone className="mr-3"/>}
-                {data.type == 'danger' && <ErrorTwoTone className="mr-3"/>}
-                <strong className="mr-auto">{data.title}</strong>
+                {data.type === 'info' && <Info className="me-3" />}
+                {data.type === 'warning' && <WarningTwoTone className="me-3" />}
+                {data.type === 'success' && <CheckCircleTwoTone className="me-3" />}
+                {data.type === 'danger' && <ErrorTwoTone className="me-3" />}
+                <strong className="me-auto">{data.title}</strong>
                 <small>just now</small>
             </Toast.Header>
             <Toast.Body>{data.content}</Toast.Body>
-        </Toast>)
-    }
+        </Toast>
+    )
 
     render() {
-        let alert = [];
-
-        if(this.state.data.length > 0) {
-            this.state.data.forEach((a,i) => {
-                alert.push(this.alertTpl(a,i));
-            });
-        }
-
-        return(<div
-            style={{
-                width: '350px',
-                position: 'absolute',
-                top: '70px',
-                right: '20px',
-                zIndex: 1000
-            }}>{alert || ""}</div>)
+        return (
+            <ToastContainer
+                position="top-end"
+                style={{ position: 'absolute', top: '70px', right: '20px', zIndex: 1000 }}>
+                {this.state.data.map((a, i) => this.alertTpl(a, i))}
+            </ToastContainer>
+        );
     }
 }
 

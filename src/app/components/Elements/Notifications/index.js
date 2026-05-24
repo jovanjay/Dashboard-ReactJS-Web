@@ -23,8 +23,8 @@ class Notifications extends React.Component {
                                     <h4>{item.title}</h4>
                                     <p>{item.content}</p>
                                     <div className="clearfix">
-                                        <small className="pull-left">{item.link}</small>
-                                        <small className="pull-right">{item.datetime}</small>
+                                        <small className="float-start">{item.link}</small>
+                                        <small className="float-end">{item.datetime}</small>
                                     </div>
                                 </Carousel.Caption>
                             </Carousel.Item>

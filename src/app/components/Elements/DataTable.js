@@ -12,9 +12,7 @@ import {
     Card
 } from 'react-bootstrap';
 
-import {
-    Refresh
-} from '@material-ui/icons';
+import { Refresh } from '@mui/icons-material';
 
 import * as MockData from '../../lib/AppMakeData'
 import * as http from '../../lib/AppHttp';
@@ -84,9 +82,9 @@ function DtTable({
                     )}
                 </tbody>
             </Table>
-                <Row className="pl-3 pr-3">
+                <Row className="ps-3 pe-3">
                     <Col>
-                    {config.limit &&  <span className="float-left">
+                    {config.limit &&  <span className="float-start">
                             <select
                                 className="form-control" size="sm"
                                 value={pageSize}
@@ -108,7 +106,7 @@ function DtTable({
                     </Col>
 
                     <Col>
-                        <Pagination size="sm" className="float-right">
+                        <Pagination size="sm" className="float-end">
                             <Pagination.First onClick={() => gotoPage (0)} disabled={!canPreviousPage}/>
                             <Pagination.Prev onClick={() => previousPage()} disabled={!canPreviousPage}/>
 
@@ -201,7 +199,7 @@ function DataTable(props) {
     return (<Card>
                 <Card.Header>
                     <strong>React Table Pagination</strong>
-                    <Refresh className="float-right" onClick={resetData}/>
+                    <Refresh className="float-end" onClick={resetData}/>
                 </Card.Header>
                 <DtTable 
                     columns={columns} 

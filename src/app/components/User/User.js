@@ -14,7 +14,7 @@ import {
 import {
     Settings,
     Search
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import * as Fields from '../Elements/Forms/Fields';
@@ -269,7 +269,7 @@ class User extends React.Component {
                                     <strong>Location :</strong> <span class="ms-2">Melbourne, Australia</span>
                                 </p>
                             </div>              
-                            <Button variant="light" className="float-right" onClick={()=>{this.edit()}}><Settings/></Button>
+                            <Button variant="light" className="float-end" onClick={()=>{this.edit()}}><Settings/></Button>
                         </Card.Body>
                     </Card>
                     <Alert variant="info" className="mb-4">
@@ -284,10 +284,10 @@ class User extends React.Component {
                         
                         <ListGroup variant="flush" className="p-2">
                             <ListGroup.Item><h4 class="header-title mb-3">Messages</h4></ListGroup.Item>
-                            <ListGroup.Item><Image src="https://via.placeholder.com/40" roundedCircle className="float-left mr-3"/> Cras justo odio<br/><span class="text-muted">Hi There!</span></ListGroup.Item>
-                            <ListGroup.Item><Image src="https://via.placeholder.com/40" roundedCircle className="float-left mr-3"/>Dapibus ac facilisis in<br/><span class="text-muted">Hi There!</span></ListGroup.Item>
-                            <ListGroup.Item><Image src="https://via.placeholder.com/40" roundedCircle className="float-left mr-3"/>Morbi leo risus<br/><span class="text-muted">Hi There!</span></ListGroup.Item>
-                            <ListGroup.Item><Image src="https://via.placeholder.com/40" roundedCircle className="float-left mr-3"/>Porta ac consectetur ac<br/><span class="text-muted">Hi There!</span></ListGroup.Item>
+                            <ListGroup.Item><Image src="https://via.placeholder.com/40" roundedCircle className="float-start me-3"/> Cras justo odio<br/><span className="text-muted">Hi There!</span></ListGroup.Item>
+                            <ListGroup.Item><Image src="https://via.placeholder.com/40" roundedCircle className="float-start me-3"/>Dapibus ac facilisis in<br/><span className="text-muted">Hi There!</span></ListGroup.Item>
+                            <ListGroup.Item><Image src="https://via.placeholder.com/40" roundedCircle className="float-start me-3"/>Morbi leo risus<br/><span className="text-muted">Hi There!</span></ListGroup.Item>
+                            <ListGroup.Item><Image src="https://via.placeholder.com/40" roundedCircle className="float-start me-3"/>Porta ac consectetur ac<br/><span className="text-muted">Hi There!</span></ListGroup.Item>
                         </ListGroup>
                     </Card>
                 </Col>
@@ -307,7 +307,7 @@ class User extends React.Component {
                             <i class="dripicons-basket float-end text-muted"></i>
                             <h6 class="text-muted text-uppercase mt-0">Orders</h6>
                             <h2 class="m-b-20">1,587</h2>
-                            <Badge variant="primary"> +11% </Badge> <span class="text-muted">From previous period</span>
+                            <Badge bg="primary"> +11% </Badge> <span className="text-muted">From previous period</span>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -317,7 +317,7 @@ class User extends React.Component {
                             <i class="dripicons-box float-end text-muted"></i>
                             <h6 class="text-muted text-uppercase mt-0">Revenue</h6>
                             <h2 class="m-b-20">$<span>46,782</span></h2>
-                            <Badge variant="danger"> -29% </Badge> <span class="text-muted">From previous period</span>                                            
+                            <Badge bg="danger"> -29% </Badge> <span className="text-muted">From previous period</span>                                            
                         </Card.Body>
                     </Card>
                 </Col>
@@ -327,7 +327,7 @@ class User extends React.Component {
                             <i class="dripicons-jewel float-end text-muted"></i>
                             <h6 class="text-muted text-uppercase mt-0">Product Sold</h6>
                             <h2 class="m-b-20">1,890</h2>
-                            <Badge variant="primary"> +89% </Badge> <span class="text-muted">Last year</span>
+                            <Badge bg="primary"> +89% </Badge> <span className="text-muted">Last year</span>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -351,37 +351,37 @@ class User extends React.Component {
                                         <tr>
                                             <td>ASOS Ridley High Waist</td>
                                             <td>$79.49</td>
-                                            <td><Badge variant="primary">82 Pcs</Badge></td>
+                                            <td><Badge bg="primary">82 Pcs</Badge></td>
                                             <td>$6,518.18</td>
-                                            <td><Button variant="outline-secondary" size="sm" className="float-right font-5"><Search/></Button></td>
+                                            <td><Button variant="outline-secondary" size="sm" className="float-end font-5"><Search/></Button></td>
                                         </tr>
                                         <tr>
                                             <td>Marco Lightweight Shirt</td>
                                             <td>$128.50</td>
-                                            <td><Badge variant="primary">37 Pcs</Badge></td>
+                                            <td><Badge bg="primary">37 Pcs</Badge></td>
                                             <td>$4,754.50</td>
-                                            <td><Button variant="outline-secondary" size="sm" className="float-right font-5"><Search/></Button></td>
+                                            <td><Button variant="outline-secondary" size="sm" className="float-end font-5"><Search/></Button></td>
                                         </tr>
                                         <tr>
                                             <td>Half Sleeve Shirt</td>
                                             <td>$39.99</td>
-                                            <td><Badge variant="primary">64 Pcs</Badge></td>
+                                            <td><Badge bg="primary">64 Pcs</Badge></td>
                                             <td>$2,559.36</td>
-                                            <td><Button variant="outline-secondary" size="sm" className="float-right font-5"><Search/></Button></td>
+                                            <td><Button variant="outline-secondary" size="sm" className="float-end font-5"><Search/></Button></td>
                                         </tr>
                                         <tr>
                                             <td>Lightweight Jacket</td>
                                             <td>$20.00</td>
-                                            <td><Badge variant="primary">184 Pcs</Badge></td>
+                                            <td><Badge bg="primary">184 Pcs</Badge></td>
                                             <td>$3,680.00</td>
-                                            <td><Button variant="outline-secondary" size="sm" className="float-right font-5"><Search/></Button></td>
+                                            <td><Button variant="outline-secondary" size="sm" className="float-end font-5"><Search/></Button></td>
                                         </tr>
                                         <tr>
                                             <td>Marco Shoes</td>
                                             <td>$28.49</td>
-                                            <td><Badge variant="primary">69 Pcs</Badge></td>
+                                            <td><Badge bg="primary">69 Pcs</Badge></td>
                                             <td>$1,965.81</td>
-                                            <td><Button variant="outline-secondary" size="sm" className="float-right font-5"><Search/></Button></td>
+                                            <td><Button variant="outline-secondary" size="sm" className="float-end font-5"><Search/></Button></td>
                                         </tr>
                                     </tbody>
                                 </Table>
@@ -485,13 +485,13 @@ class User extends React.Component {
                                             return <Row key={i}>{form}</Row>;
                                         })}
                                         <Form.Group as={Col} className="mb-3">
-                                            <Button variant="primary" type="submit" className="mr-3">
+                                            <Button variant="primary" type="submit" className="me-3">
                                                 Submit
                                             </Button>
                                             <Button variant="light" type="button" onClick={handleReset}>
                                                 Reset
                                             </Button>
-                                            <Button variant="light" type="button" className="float-right" onClick={()=>{this.edit()}}>
+                                            <Button variant="light" type="button" className="float-end" onClick={()=>{this.edit()}}>
                                                 Cancel
                                             </Button>
                                         </Form.Group>
