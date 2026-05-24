@@ -26,30 +26,33 @@ class Application extends React.Component {
             }
         }
 
-        store.subscribe(() => {
-            //content change from sidebar
-            if(store.getState().sidebarReducer.get('current')) {
+        this._unsubscribe = null;
+    }
+
+    componentDidMount() {
+        this._unsubscribe = store.subscribe(() => {
+            const sidebar = store.getState().sidebarReducer;
+            if (sidebar.current) {
                 this.setState({
-                    current : store.getState().sidebarReducer.get('current'),
-                    target : store.getState().sidebarReducer.get('target'),
-                    data : store.getState().sidebarReducer.get('data')
+                    current: sidebar.current,
+                    target: sidebar.target,
+                    data: sidebar.data
                 });
             }
         });
-    }
-    
-    componentDidMount () {
-        // console.log('Application Component mounted');
+
         console.debug('Application did mount', {
-            data : this.state
-        });        
+            data: this.state
+        });
         this.onLoadActions();
     }
-    
-    componentWillUnmount () {
-        // console.log('Application Component unmounted');
+
+    componentWillUnmount() {
+        if (this._unsubscribe) {
+            this._unsubscribe();
+        }
         console.debug('Application Will Unmount', {
-            data : this.state
+            data: this.state
         });
     }
 

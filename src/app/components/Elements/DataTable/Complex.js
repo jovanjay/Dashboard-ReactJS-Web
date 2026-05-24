@@ -94,6 +94,8 @@ function DtTable ({ columns, data, updateMyData, resetData, deleteSelected,  dis
         }
     }
 
+    const { key: tableKey, ...tableProps } = getTableProps();
+
     // Render the UI for your table
     return (
         <>
@@ -103,29 +105,37 @@ function DtTable ({ columns, data, updateMyData, resetData, deleteSelected,  dis
                 <Button className="float-end" variant="outline-secondary" size="sm" onClick={resetData}><Refresh/> Refresh</Button>
             </Card.Header>
             
-            <Table as={Card.Body} responsive {...getTableProps()} className="react-table-editable" hover>
+            <Table as={Card.Body} responsive {...tableProps} className="react-table-editable" hover>
                 <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody>
-                    {page.map(
-                        (row, i) =>
-                        prepareRow(row) || (
-                            <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => {
+                    {headerGroups.map(headerGroup => {
+                        const { key: headerGroupKey, ...headerGroupProps } = headerGroup.getHeaderGroupProps();
+                        return (
+                            <tr key={headerGroupKey} {...headerGroupProps}>
+                                {headerGroup.headers.map(column => {
+                                    const { key: columnKey, ...columnHeaderProps } = column.getHeaderProps();
                                     return (
-                                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                    )
+                                        <th key={columnKey} {...columnHeaderProps}>{column.render('Header')}</th>
+                                    );
                                 })}
                             </tr>
-                        )
-                    )}
+                        );
+                    })}
+                </thead>
+                <tbody>
+                    {page.map((row) => {
+                        prepareRow(row);
+                        const { key: rowKey, ...rowProps } = row.getRowProps();
+                        return (
+                            <tr key={rowKey} {...rowProps}>
+                                {row.cells.map(cell => {
+                                    const { key: cellKey, ...cellProps } = cell.getCellProps();
+                                    return (
+                                        <td key={cellKey} {...cellProps}>{cell.render('Cell')}</td>
+                                    );
+                                })}
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </Table>
 

@@ -146,12 +146,12 @@ class ModalContent extends React.Component {
     }
 
     contextMenuTpl = () => {
-        return (<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style={this.state.style} onFocus={()=>{console.log('Context Focus')}} onBlur={()=>{this.contextMenuHide()}}>                    
-                    <li><a tabindex="-1" href="#" class="dropdown-item">Action</a></li>
-                    <li><a tabindex="-1" href="#" class="dropdown-item">Another action</a></li>
-                    <li><a tabindex="-1" href="#" class="dropdown-item">Something else here</a></li>
-                    <li class="dropdown-divider"><a href="#" ref={this.contextMenu}></a></li>
-                    <li><a tabindex="-1" href="#" class="dropdown-item">Separated link</a></li>
+        return (<ul className="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style={this.state.style} onFocus={()=>{console.log('Context Focus')}} onBlur={()=>{this.contextMenuHide()}}>                    
+                    <li><a tabIndex="-1" href="#" className="dropdown-item">Action</a></li>
+                    <li><a tabIndex="-1" href="#" className="dropdown-item">Another action</a></li>
+                    <li><a tabIndex="-1" href="#" className="dropdown-item">Something else here</a></li>
+                    <li className="dropdown-divider"><a href="#" ref={this.contextMenu}></a></li>
+                    <li><a tabIndex="-1" href="#" className="dropdown-item">Separated link</a></li>
             </ul>)
     }
 
@@ -228,26 +228,30 @@ class ModalContent extends React.Component {
                     <Card>
                         <Table as="Card.Body" striped responsive hover size="md">
                             <thead>
-                                <th>Col 1</th>
-                                <th>Col 2</th>
-                                <th>Col 3</th>
+                                <tr>
+                                    <th>Col 1</th>
+                                    <th>Col 2</th>
+                                    <th>Col 3</th>
+                                </tr>
                             </thead>
-                            <tr onContextMenu={this.contextMenuActions}>
-                                <td>some data 1</td>
-                                <td>some data 2</td>
-                                <td>some data 3</td>
-                            </tr>
-                            <tr onContextMenu={this.contextMenuActions}>
-                                <td>some data 1</td>
-                                <td>some data 2</td>
-                                <td>some data 3</td>
-                            </tr>
-                            <tr onContextMenu={this.contextMenuActions}>
-                                <td>some data 1</td>
-                                <td>some data 2</td>
-                                <td>some data 3</td>
-                            </tr>
-                        </Table>    
+                            <tbody>
+                                <tr onContextMenu={this.contextMenuActions}>
+                                    <td>some data 1</td>
+                                    <td>some data 2</td>
+                                    <td>some data 3</td>
+                                </tr>
+                                <tr onContextMenu={this.contextMenuActions}>
+                                    <td>some data 1</td>
+                                    <td>some data 2</td>
+                                    <td>some data 3</td>
+                                </tr>
+                                <tr onContextMenu={this.contextMenuActions}>
+                                    <td>some data 1</td>
+                                    <td>some data 2</td>
+                                    <td>some data 3</td>
+                                </tr>
+                            </tbody>
+                        </Table>
                     </Card>
                 </Col>
         </Row></>)
@@ -279,7 +283,7 @@ const reset = () => {
 }
 
 const mapStateProps = state => ({
-    alert : state.commonReducer.get('alert')
+    alert : state.commonReducer.alert
 });
 
 const mapDispatchToProps = dispatch => ({

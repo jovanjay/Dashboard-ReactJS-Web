@@ -55,31 +55,41 @@ function DtTable({
         fetchData({ pageIndex, pageSize })
     }, [fetchData, pageIndex, pageSize]);
 
+    const { key: tableKey, ...tableProps } = getTableProps();
+
     // Render the UI for your table
     return <div>
-            <Table responsive {...getTableProps()} className={"react-table-editable" + (loading ? " loading":"")} hover striped size="lg" >
+            <Table responsive {...tableProps} className={"react-table-editable" + (loading ? " loading":"")} hover striped size="lg" >
                 <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody>
-                    {page.map(
-                        (row, i) =>
-                        prepareRow(row) || (
-                            <tr onContextMenu={(row)=>{contextMenu(row)}} {...row.getRowProps()}>
-                                {row.cells.map(cell => {
+                    {headerGroups.map(headerGroup => {
+                        const { key: headerGroupKey, ...headerGroupProps } = headerGroup.getHeaderGroupProps();
+                        return (
+                            <tr key={headerGroupKey} {...headerGroupProps}>
+                                {headerGroup.headers.map(column => {
+                                    const { key: columnKey, ...columnHeaderProps } = column.getHeaderProps();
                                     return (
-                                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                    )
+                                        <th key={columnKey} {...columnHeaderProps}>{column.render('Header')}</th>
+                                    );
                                 })}
                             </tr>
-                        )
-                    )}
+                        );
+                    })}
+                </thead>
+                <tbody>
+                    {page.map((row) => {
+                        prepareRow(row);
+                        const { key: rowKey, ...rowProps } = row.getRowProps();
+                        return (
+                            <tr key={rowKey} onContextMenu={() => { contextMenu(row); }} {...rowProps}>
+                                {row.cells.map(cell => {
+                                    const { key: cellKey, ...cellProps } = cell.getCellProps();
+                                    return (
+                                        <td key={cellKey} {...cellProps}>{cell.render('Cell')}</td>
+                                    );
+                                })}
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </Table>
                 <Row className="ps-3 pe-3">
