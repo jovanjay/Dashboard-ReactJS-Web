@@ -9,11 +9,15 @@
 ![Electron](https://img.shields.io/badge/Electron-42-47848F)
 ![License](https://img.shields.io/badge/license-private-lightgrey)
 
+**Live demo:** [http://reactjs.jovanjay.com](http://reactjs.jovanjay.com)
+
 ---
 
 ## What is this?
 
 **Fuze Dashboard** (Fuze Project) is a front-end starter and demo admin panel built with React. It provides reusable UI patterns you can deploy to the browser or package as a native desktop app with Electron.
+
+Try the hosted version at [http://reactjs.jovanjay.com](http://reactjs.jovanjay.com).
 
 The app includes:
 
