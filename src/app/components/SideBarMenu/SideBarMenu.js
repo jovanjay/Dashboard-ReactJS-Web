@@ -186,14 +186,11 @@ class SideBarMenu extends React.Component {
     }
 
     sidebarPanel = () => (
-        <Accordion defaultActiveKey="0" onSelect={(selected) => { this.menuSelected(selected); }}>
+        <Accordion defaultActiveKey="0" onSelect={(selected) => { this.menuSelected(selected); }} flush>
             {this.state.menuItems.map((item, index) => (
                 <Accordion.Item key={index} eventKey={String(index + 1)}>
                     <Accordion.Header>
                         <strong>{item.label}</strong>
-                        {((index + 1) === this.state.menuSelected)
-                            ? <KeyboardArrowDown className="ms-auto" />
-                            : <ChevronRight className="ms-auto" />}
                     </Accordion.Header>
                     <Accordion.Body className="p-0">
                         {item.subMenu && (

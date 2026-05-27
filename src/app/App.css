@@ -308,6 +308,22 @@ html {
     background-color: #ffffff;
 }
 
+.sidebar-menu-container .accordion {
+    --bs-accordion-bg: transparent;
+    --bs-accordion-active-bg: transparent;
+    --bs-accordion-btn-bg: transparent;
+    --bs-accordion-btn-active-bg: transparent;
+    --bs-accordion-border-color: transparent;
+}
+
+.sidebar-menu-container .accordion-item,
+.sidebar-menu-container .accordion-button,
+.sidebar-menu-container .accordion-button:not(.collapsed),
+.sidebar-menu-container .accordion-body {
+    background-color: transparent;
+    box-shadow: none;
+}
+
 .sidebar-menu-container .accordion ul {
     margin: 0;
     padding: 0;
@@ -328,7 +344,7 @@ html {
 
 .sidebar-menu-container .accordion ul li > a {
     cursor: pointer;
-    padding: 10px 10px;
+    padding: 10px 20px;
     width: 100%;
     margin: 0;
     display: block;
@@ -342,6 +358,29 @@ html {
 
 .dark .sidebar-handle-container .sidebar-handle a {
     color: #bccee4;
+}
+
+.dark .sidebar-menu-container .accordion {
+    --bs-accordion-color: #bccee4;
+    --bs-accordion-active-color: #ffffff;
+    --bs-accordion-btn-color: #bccee4;
+    --bs-accordion-btn-active-color: #ffffff;
+    --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23bccee4' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.dark .sidebar-menu-container .accordion-button:hover::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.dark .sidebar-menu-container .accordion-button,
+.dark .sidebar-menu-container .accordion-button:not(.collapsed) {
+    color: #bccee4;
+}
+
+.dark .sidebar-menu-container .accordion-button:hover,
+.dark .sidebar-menu-container .accordion-button:not(.collapsed):hover {
+    color: #ffffff;
 }
 
 .dark .sidebar-menu-container .accordion a {
